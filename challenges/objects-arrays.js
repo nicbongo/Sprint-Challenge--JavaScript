@@ -104,11 +104,10 @@ console.log(contactInfo);
 /* Request 3: Find out how many universities have the string "Uni" included in their name. Create a new array called unisWithUni that contains them all. This will be an array of objects. Log the result. */
 const unisWithUni = [];
 
-const uni= []
- graduates.forEach(function(i){  
-   if (i.university.includes('Uni'))
-   {
-  uni.push(i.university);}
+graduates.forEach(function(data){  
+   if (data.university.includes('Uni'))
+   { unisWithUni.push(data.university);
+  }
 })
 
 console.log(unisWithUni);
@@ -141,10 +140,11 @@ displayNames will be an array of strings, and each string should follow this pat
 */
 const displayNames = [];
 
-zooAnimals.forEach(function(i){
-  displayNames.push("Name: " + i.animal_name + ", Scientific: " + i.scientific_name)
+//           loops through each item in zooAnimals Array
+zooAnimals.forEach(function(itemInArray){
+  displayNames.push(`Name: ${itemInArray.animal_name}, Scientific: ${itemInArray.scientific_name}.`)
   })
-  
+//            for each item in array, push into new array with required values
 
 console.log(displayNames);
 
@@ -156,36 +156,47 @@ this pattern: "jackal, asiatic". Log the resut.
 
 */
 
-function animalNamesLowCase(zooAnimals) {
-  const lowCaps = zooAnimals.map(function(toCaps){
-    return toCaps.animal_name.toLowerCase();
+let lowCaseAnimalNames = function (zooAnimals) { 
+  const lowCaps = zooAnimals.map(function(animal){ //1
+    return animal.animal_name.toLowerCase();
   });
   return lowCaps
 }
+// 1 declare new variable with map method
+// 2 map method returns new array based on animal nameproperty from animals (really zooAnimals) and convert to lowercase
 
-console.log(animalNamesLowCase(zooAnimals));
+console.log(lowCaseAnimalNames(zooAnimals));
 
 /* Request 3: .filter() 
 
-The zoos are concerned about animals with a lower population count. Using filter, create a new array of o
-bjects called lowPopulationAnimals which contains only the animals with a population less than 5.
+The zoos are concerned about animals with a lower population count. Using filter, create a new array of 
+objects called lowPopulationAnimals which contains only the animals with a population less than 5.
 
 */
-let lowerPopulation = [];
-
-lowerPopulation = zooAnimals.filter(word => word.population < 5);
-console.log(lowerPopulation);
+let lowerPopulationAnimals = zooAnimals.filter(zooAnimals => zooAnimals.population < 5);
+//  required array                          Element passing through method)
+//                    data[array of objects]  
+//                                            filter method     method conditional (less than five)
+//                                                              => returns those objects that meet conditional in array                         
+console.log(lowerPopulationAnimals);
 
 /* Request 4: .reduce() 
 
-The zoos need to know their total animal population across the United States. Find the total population from all the zoos using the .reduce() method. Remember the reduce method takes two arguments: a callback (which itself takes two args), and an initial value for the count.
+The zoos need to know their total animal population across the United States. 
+Find the total population from all the zoos using the .reduce() method. 
+Remember the reduce method takes two arguments: a callback (which itself takes two args), and an 
+initial value for the count.
 
 */
-let populationTotal = zooAnimals.reduce((population, zooAnimal, index, zooAnimals) => {
-  return population += zooAnimal.population;
-},0);
+let populationTotal = zooAnimals.reduce((population, zooAnimal) => { // 1
+  return population += zooAnimal.population; // 2
+},0); // 0
 
-console.log(populationTotal);
+
+// 0 acuumaltor value set to 0
+// 1 set callback reduce/accumulator method on population key-value from zooAnimal array
+// 2 return the defining of the accumaltion, adding/equating each instance of population to the accumulator
+console.log(populationTotal); //56
 
 
 /*
